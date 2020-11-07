@@ -1,0 +1,58 @@
+html, body {
+    height: 100%;
+    width: 100%;
+    margin-left: 0%;
+}
+
+body {
+    background: black;
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-align: center;
+        align-items: center;
+    -webkit-box-pack: center;
+        justify-content: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        flex-direction: column;
+}
+
+a {
+    color: #333333;
+    text-decoration: none;
+    font-size: 1.1em;
+}
+
+a:hover {
+    color: #404040;
+}
+
+.Summer{
+    display: block !important;
+    position: relative;
+    width: 100%;
+    top: 0%;
+    transition: transform 1s;
+}
+
+.Summer[top]{
+    transform: translate(0,-200px);
+}
+
+.Summer[top] + .Summertxt {
+    display: block;
+    visibility: visible;
+    opacity: 1;
+}
+
+.Summertxt {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.5s linear;
+    position: fixed;
+    color: #2c7ed5;
+    margin-top: auto;
+    margin-bottom: auto;
+    text-decoration: none;
+    font-size: 1.1em;
+}
