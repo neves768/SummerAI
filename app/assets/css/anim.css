@@ -39,13 +39,19 @@ a:hover {
     transform: translate(0,-200px);
 }
 
-.Summer[top] + .Summertxt {
+.Summer[top] ~ .SummerTxt {
     display: block;
     visibility: visible;
     opacity: 1;
 }
 
-.Summertxt {
+.humanTxt[said] {
+    display: block;
+    visibility: visible;
+    opacity: 1;
+}
+
+.SummerTxt, .humanTxt {
     visibility: hidden;
     opacity: 0;
     transition: visibility 0s, opacity 0.5s linear;
@@ -55,4 +61,21 @@ a:hover {
     margin-bottom: auto;
     text-decoration: none;
     font-size: 1.1em;
+}
+
+#humanBox {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    margin-bottom: 0;
+}
+
+.humanTxt{
+    visibility: visible;
+    opacity: 1;
+    bottom: 0;
+    margin: 5% auto;
+    text-align: center;
+    width: 100%;
 }
