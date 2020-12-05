@@ -1,0 +1,17 @@
+body {
+	background-color:#000;
+	text-align: center;
+	color: white;
+}
+
+a {
+	color: red !important;
+}
+
+.lamp {
+	height: 150px;
+}
+#lampadas {
+	display: inline-flex;
+	
+}
