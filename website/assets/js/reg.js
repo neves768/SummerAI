@@ -27,11 +27,11 @@ $("form").on("submit", function(e){
                     <span aria-hidden="true">&times;</span>
                 </button>
                 ${r.response}<br>
-                <a href="/">Clique aqui</a> para retornar ao início, caso não seja redirecionado automaticamente.
+                <a href="/iotsummer">Clique aqui</a> para retornar ao início, caso não seja redirecionado automaticamente.
             </div>
             `
             setTimeout(function(){ 
-                document.location = "/"
+                document.location = "/iotsummer/"
             }, 2000)
         } else {
             document.querySelector("#msgbox").innerHTML = `

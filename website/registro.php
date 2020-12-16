@@ -22,7 +22,7 @@
 <body>
     <form class="form-signin">
         <div class="text-center mb-4">
-            <img class="mb-4" src="<?=$u->path?>/assets/img/lightbulb.svg" alt="" width="72" height="72">
+            <a href="./"><img class="mb-4" src="<?=$u->path?>/assets/img/lightbulb.svg" alt="" width="72" height="72"></a>
             <h1 class="h3 mb-3 font-weight-normal">Cadastro do Usuário</h1>
         </div>
 

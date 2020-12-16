@@ -2,15 +2,16 @@
 namespace Nev;
 require_once("MariaDBHandler.php");
 class User{
-    private $publicPages = ["", "cadastro", "API/AUT/act/register", "API/AUT/act/login"];
-    function __construct() {
-        $this->path = "/";
-        $this->MariaDB = (new Database())->getDBConnection();
+    private $publicPages = ["", "cadastro"];
+    function __construct(&$db = false, $fromAPI=false) {
+        $this->path = "/iotsummer/";
+        $this->MariaDB = $db;
+        if(!$this->MariaDB) $this->MariaDB = (new Database())->getDBConnection();
         $this->isLoggedIn = $this->verifyHash($_COOKIE["sessID"] ?? false);
         if($this->isLoggedIn){
             $this->udata = $this->getUserData($_COOKIE["sessID"]);
         }
-        $this->protectPage();
+        if(!$fromAPI) $this->protectPage();
     }
 
     private function hashIt($ps){
@@ -42,8 +43,8 @@ class User{
 		setcookie("sessID", $_COOKIE["sessID"], [
 			'expires' => time() - 1000,
 			'path' => '/',
-			'domain' => $_SERVER['HTTP_HOST'],
-			'secure' => ($_SERVER['HTTP_HOST'] != "iot.localhost") ? true : false,
+            'domain' => $_SERVER['HTTP_HOST'],
+			'secure' => (strstr($_SERVER['HTTP_HOST'], "localhost") == false) ? true : false,
 			'httponly' => true,
 			'samesite' => 'Lax',
 		]);
@@ -114,7 +115,7 @@ class User{
                 'expires' => time() + 3600*2,
                 'path' => '/',
                 'domain' => $_SERVER['HTTP_HOST'],
-                'secure' => ($_SERVER['HTTP_HOST'] != "iot.localhost") ? true : false,
+                'secure' => (strstr($_SERVER['HTTP_HOST'], "localhost") == false) ? true : false,
                 'httponly' => true,
                 'samesite' => 'Lax',
             ]);
@@ -122,18 +123,5 @@ class User{
         } else {
             return false;
         }
-    }
-    
-    // TO DO: MOVER PARA MÓDULO PRÓPRIO
-    public function getDevices(){
-        $q = $this->MariaDB->prepare("SELECT `ID`, `nome`, `dados`, `type` FROM `smartdevices` WHERE `userID` = :uID");
-        $q->execute(['uID' => $this->udata->ID]);
-		return $q->fetchAll(\PDO::FETCH_OBJ);
-    }
-
-    public function setDevice($deviceID, $state){
-        $q = $this->MariaDB->prepare("UPDATE `smartdevices` SET `dados` = :dt WHERE `ID` = :device");
-        $q->execute(['device' => $deviceID, 'dt' => json_encode(["state" => $state])]);
-		return ["Sucesso", true];
     }
 }

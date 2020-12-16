@@ -1,12 +1,12 @@
 <IfModule mod_rewrite.c>
     Options -Indexes
 	RewriteEngine On
-	RewriteBase /
+	DirectorySlash Off
 	RewriteCond %{REQUEST_FILENAME} !-f
 	RewriteCond %{REQUEST_FILENAME} !-d
 	
 
-	RewriteRule ^cadastro$ /registro.php [NC,L]
-	RewriteRule ^home$ /home.php [NC,L]
-    RewriteRule ^API/([A-Z]{1,3})/(.*)$ /sys/API.php?branch=$1&path=$2 [QSA]
+	RewriteRule ^cadastro$ /iotsummer/registro.php [NC,L]
+	RewriteRule ^home$ /iotsummer/home.php [NC,L]
+    RewriteRule ^API/([A-Z]{1,3})/(.*)$ /iotsummer/sys/API.php?branch=$1&path=$2 [QSA]
 </IfModule>

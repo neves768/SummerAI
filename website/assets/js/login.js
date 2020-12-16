@@ -13,7 +13,7 @@ $("form").on("submit", function(e){
             </div>
             `
             setTimeout(function(){ 
-                document.location = "/home"
+                document.location = "/iotsummer/home"
             }, 2000)
         } else {
             document.querySelector("#msgbox").innerHTML = `

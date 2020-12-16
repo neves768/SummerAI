@@ -6,31 +6,37 @@
 ===================================================
 ***************************************************/
 namespace Nev;
+require_once("MariaDBHandler.php");
 require_once("user.php");
 class SummerAPI {
 	private $folders = [
 		"AUT" => "auth",
+		"DEV" => "devices",
 	];
 
 	protected $fn = [];
-	protected $auth;
+	protected $user;
 	protected $method;
 	protected $path;
-	protected $dbgames;
+	protected $MariaDB;
 	function __construct($folderPath){
-		header("Content-Type: application/json;charset=utf-8");
+        header("Content-Type: application/json;charset=utf-8");
         $this->declareFns($folderPath);
 	}
 	
 	protected function init(){
 		$this->method = $_SERVER['REQUEST_METHOD'];
         $this->path = $_GET['path'];
+        $this->MariaDB = (new Database())->getDBConnection();
+        $this->user = new User($this->MariaDB, true);
 	}
 	
 	protected function makeCall(){
 		if(isset($this->fn[$this->path])){
-			if(!isset($this->fn[$this->path]["norequired"])){				
-				//
+			if(!isset($this->fn[$this->path]["norequired"])){
+				if(!$this->user->isLoggedIn){
+                    exit(json_encode(["response" => "Not authorized"]));
+                }
 			}
 			if(isset($this->fn[$this->path]["methods"][$this->method])){
 				if(isset($this->fn[$this->path]["params"])){
